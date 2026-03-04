@@ -688,30 +688,3 @@ document.getElementById('diabetesForm').addEventListener('reset', function() {
     document.getElementById('result').classList.remove('show');
     document.getElementById('errorMessage').classList.remove('show');
 });
-
-// Load example data
-document.getElementById('loadExample1').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('bmi').value = 22.5;
-    document.getElementById('glucose').value = 95;
-    document.getElementById('insulin').value = 50;
-    document.getElementById('age').value = 30;
-    document.getElementById('diabetes_pedigree').value = 0.25;
-    document.getElementById('skinfold').value = 20;
-    document.getElementById('blood_pressure').value = 70;
-    document.getElementById('result').classList.remove('show');
-    document.getElementById('errorMessage').classList.remove('show');
-});
-
-document.getElementById('loadExample2').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('bmi').value = 38;
-    document.getElementById('glucose').value = 168;
-    document.getElementById('insulin').value = 400;
-    document.getElementById('age').value = 45;
-    document.getElementById('diabetes_pedigree').value = 0.8;
-    document.getElementById('skinfold').value = 35;
-    document.getElementById('blood_pressure').value = 89;
-    document.getElementById('result').classList.remove('show');
-    document.getElementById('errorMessage').classList.remove('show');
-});
