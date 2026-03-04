@@ -23,11 +23,23 @@
 
         .container {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            max-width: 650px;
             width: 100%;
             padding: 40px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .header {
@@ -37,13 +49,15 @@
 
         .header h1 {
             color: #1a237e;
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 8px;
+            font-weight: 700;
         }
 
         .header p {
             color: #666;
-            font-size: 14px;
+            font-size: 15px;
+            line-height: 1.5;
         }
 
         .form-group {
@@ -62,24 +76,66 @@
             flex-direction: column;
         }
 
+        .label-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
         .input-field label {
             color: #1a237e;
             font-weight: 600;
             font-size: 13px;
-            margin-bottom: 6px;
+        }
+
+        .help-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: help;
+            position: relative;
+        }
+
+        .help-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            display: none;
+            z-index: 10;
+            margin-bottom: 5px;
+        }
+
+        .help-icon:hover .help-tooltip {
+            display: block;
         }
 
         .input-field input {
-            padding: 10px 12px;
+            padding: 12px 14px;
             border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f9f9f9;
         }
 
         .input-field input:focus {
             outline: none;
             border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .unit {
@@ -96,9 +152,9 @@
 
         button {
             flex: 1;
-            padding: 12px 20px;
+            padding: 13px 20px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
@@ -112,7 +168,11 @@
 
         .btn-analyze:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.35);
+        }
+
+        .btn-analyze:active {
+            transform: translateY(0);
         }
 
         .btn-reset {
@@ -122,13 +182,36 @@
 
         .btn-reset:hover {
             background: #eeeeee;
+            transform: translateY(-2px);
+        }
+
+        .btn-example {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            font-size: 14px;
+        }
+
+        .btn-example:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(245, 87, 108, 0.35);
+        }
+
+        .bottom-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .bottom-buttons button {
+            flex: 1;
         }
 
         .result {
             margin-top: 30px;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 24px;
+            border-radius: 12px;
             display: none;
+            animation: slideUp 0.4s ease-out;
         }
 
         .result.show {
@@ -136,17 +219,18 @@
         }
 
         .result.high-risk {
-            background: #ffebee;
-            border-left: 4px solid #f44336;
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border-left: 5px solid #f44336;
         }
 
         .result.low-risk {
-            background: #e8f5e9;
-            border-left: 4px solid #4caf50;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 5px solid #4caf50;
         }
 
         .result h3 {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 20px;
         }
 
         .result.high-risk h3 {
@@ -158,21 +242,64 @@
         }
 
         .result p {
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 8px;
         }
 
         .result.high-risk p {
-            color: #d32f2f;
+            color: #b71c1c;
         }
 
         .result.low-risk p {
-            color: #388e3c;
+            color: #1b5e20;
         }
 
         .warning-icon {
-            font-size: 32px;
-            margin-bottom: 10px;
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .result-emphasis {
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .error-message {
+            background: #ffcdd2;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -186,53 +313,95 @@
         <form id="diabetesForm">
             <div class="form-group">
                 <div class="input-field">
-                    <label for="bmi">BMI</label>
-                    <input type="number" id="bmi" step="0.1" placeholder="Enter BMI">
+                    <div class="label-wrapper">
+                        <label for="bmi">BMI</label>
+                        <div class="help-icon">?
+                            <span class="help-tooltip">Body Mass Index (kg/m²)</span>
+                        </div>
+                    </div>
+                    <input type="number" id="bmi" step="0.1" placeholder="Enter BMI" required>
                     <span class="unit">kg/m²</span>
                 </div>
                 <div class="input-field">
-                    <label for="glucose">Glucose</label>
-                    <input type="number" id="glucose" step="0.1" placeholder="Enter glucose level">
+                    <div class="label-wrapper">
+                        <label for="glucose">Glucose</label>
+                        <div class="help-icon">?
+                            <span class="help-tooltip">Blood glucose level</span>
+                        </div>
+                    </div>
+                    <input type="number" id="glucose" step="0.1" placeholder="Enter glucose level" required>
                     <span class="unit">mg/dL</span>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-field">
-                    <label for="insulin">Insulin</label>
-                    <input type="number" id="insulin" step="0.1" placeholder="Enter insulin level">
+                    <div class="label-wrapper">
+                        <label for="insulin">Insulin</label>
+                        <div class="help-icon">?
+                            <span class="help-tooltip">Serum insulin level</span>
+                        </div>
+                    </div>
+                    <input type="number" id="insulin" step="0.1" placeholder="Enter insulin level" required>
                     <span class="unit">µU/mL</span>
                 </div>
                 <div class="input-field">
-                    <label for="age">Age</label>
-                    <input type="number" id="age" step="1" placeholder="Enter age">
+                    <div class="label-wrapper">
+                        <label for="age">Age</label>
+                        <div class="help-icon">?
+                            <span class="help-tooltip">Your age in years</span>
+                        </div>
+                    </div>
+                    <input type="number" id="age" step="1" placeholder="Enter age" required>
                     <span class="unit">years</span>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-field">
-                    <label for="diabetes_pedigree">Diabetes Pedigree</label>
-                    <input type="number" id="diabetes_pedigree" step="0.0001" placeholder="Enter pedigree function">
+                    <div class="label-wrapper">
+                        <label for="diabetes_pedigree">Diabetes Pedigree</label>
+                        <div class="help-icon">?
+                            <span class="help-tooltip">Family history function</span>
+                        </div>
+                    </div>
+                    <input type="number" id="diabetes_pedigree" step="0.0001" placeholder="Enter pedigree function" required>
                 </div>
                 <div class="input-field">
-                    <label for="skinfold">Skinfold Thickness</label>
-                    <input type="number" id="skinfold" step="0.1" placeholder="Enter skinfold thickness">
+                    <div class="label-wrapper">
+                        <label for="skinfold">Skinfold</label>
+                        <div class="help-icon">?
+                            <span class="help-tooltip">Triceps skinfold grip</span>
+                        </div>
+                    </div>
+                    <input type="number" id="skinfold" step="0.1" placeholder="Enter skinfold thickness" required>
                     <span class="unit">mm</span>
                 </div>
             </div>
 
             <div class="form-group full">
                 <div class="input-field">
-                    <label for="blood_pressure">Blood Pressure</label>
-                    <input type="number" id="blood_pressure" step="0.1" placeholder="Enter blood pressure">
+                    <div class="label-wrapper">
+                        <label for="blood_pressure">Blood Pressure</label>
+                        <div class="help-icon">?
+                            <span class="help-tooltip">Diastolic blood pressure</span>
+                        </div>
+                    </div>
+                    <input type="number" id="blood_pressure" step="0.1" placeholder="Enter blood pressure" required>
                     <span class="unit">mmHg</span>
                 </div>
             </div>
 
+            <div class="error-message" id="errorMessage"></div>
+
             <div class="button-group">
                 <button type="submit" class="btn-analyze">Analyze Risk</button>
                 <button type="reset" class="btn-reset">Clear</button>
+            </div>
+
+            <div class="bottom-buttons">
+                <button type="button" class="btn-example" id="loadExample1">📊 Low Risk</button>
+                <button type="button" class="btn-example" id="loadExample2">⚠️ High Risk</button>
             </div>
         </form>
 

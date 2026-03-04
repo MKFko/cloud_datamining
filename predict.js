@@ -618,14 +618,43 @@ function predictDiabetes(glucose = null, bloodPressure = null, skinfold = null,
 document.getElementById('diabetesForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
+    const errorMessage = document.getElementById('errorMessage');
+    errorMessage.classList.remove('show');
+
     // Get form values
-    const bmi = parseFloat(document.getElementById('bmi').value) || null;
-    const glucose = parseFloat(document.getElementById('glucose').value) || null;
-    const insulin = parseFloat(document.getElementById('insulin').value) || null;
-    const age = parseFloat(document.getElementById('age').value) || null;
-    const diabetesPedigree = parseFloat(document.getElementById('diabetes_pedigree').value) || null;
-    const skinfold = parseFloat(document.getElementById('skinfold').value) || null;
-    const bloodPressure = parseFloat(document.getElementById('blood_pressure').value) || null;
+    const bmi = parseFloat(document.getElementById('bmi').value);
+    const glucose = parseFloat(document.getElementById('glucose').value);
+    const insulin = parseFloat(document.getElementById('insulin').value);
+    const age = parseFloat(document.getElementById('age').value);
+    const diabetesPedigree = parseFloat(document.getElementById('diabetes_pedigree').value);
+    const skinfold = parseFloat(document.getElementById('skinfold').value);
+    const bloodPressure = parseFloat(document.getElementById('blood_pressure').value);
+
+    // Validation
+    if (!bmi || !glucose || !insulin || !age || !diabetesPedigree || !skinfold || !bloodPressure) {
+        errorMessage.textContent = '⚠️ Please fill in all fields';
+        errorMessage.classList.add('show');
+        return;
+    }
+
+    // Validate ranges
+    if (bmi < 12 || bmi > 70) {
+        errorMessage.textContent = '⚠️ BMI should be between 12 and 70';
+        errorMessage.classList.add('show');
+        return;
+    }
+
+    if (glucose < 20 || glucose > 600) {
+        errorMessage.textContent = '⚠️ Glucose should be between 20 and 600 mg/dL';
+        errorMessage.classList.add('show');
+        return;
+    }
+
+    if (age < 18 || age > 120) {
+        errorMessage.textContent = '⚠️ Age should be between 18 and 120 years';
+        errorMessage.classList.add('show');
+        return;
+    }
 
     // Make prediction
     const prediction = predictDiabetes(glucose, bloodPressure, skinfold, insulin, bmi, diabetesPedigree, age);
@@ -640,15 +669,15 @@ document.getElementById('diabetesForm').addEventListener('submit', function(e) {
     if (prediction === 'true') {
         resultDiv.className = 'result show high-risk';
         resultIcon.textContent = '⚠️';
-        resultTitle.textContent = 'High Risk';
-        resultMessage.textContent = 'Based on the provided health metrics, there is a significant risk of diabetes.';
-        resultRecommendation.textContent = 'Consider consulting a healthcare professional for further evaluation and appropriate medical advice.';
+        resultTitle.textContent = 'High Risk ⚠️';
+        resultMessage.textContent = 'Based on the provided health metrics, <span class="result-emphasis">there is a significant risk of diabetes</span>. Your combination of health parameters indicates elevated risk factors.';
+        resultRecommendation.textContent = '💊 Strongly consider consulting with a healthcare professional for proper screening, evaluation, and medical advice.';
     } else {
         resultDiv.className = 'result show low-risk';
         resultIcon.textContent = '✅';
-        resultTitle.textContent = 'Low Risk';
-        resultMessage.textContent = 'Based on the provided health metrics, the diabetes risk appears to be low.';
-        resultRecommendation.textContent = 'Maintain a healthy lifestyle with regular exercise and balanced diet.';
+        resultTitle.textContent = 'Low Risk ✅';
+        resultMessage.textContent = 'Based on the provided health metrics, <span class="result-emphasis">the risk of diabetes appears to be low</span>. Your current health parameters are within healthy ranges.';
+        resultRecommendation.textContent = '💪 Maintain a healthy lifestyle with regular exercise (150+ min/week), balanced diet, and periodic health checkups.';
     }
 
     // Scroll to result
@@ -657,4 +686,32 @@ document.getElementById('diabetesForm').addEventListener('submit', function(e) {
 
 document.getElementById('diabetesForm').addEventListener('reset', function() {
     document.getElementById('result').classList.remove('show');
+    document.getElementById('errorMessage').classList.remove('show');
+});
+
+// Load example data
+document.getElementById('loadExample1').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('bmi').value = 22.5;
+    document.getElementById('glucose').value = 95;
+    document.getElementById('insulin').value = 50;
+    document.getElementById('age').value = 30;
+    document.getElementById('diabetes_pedigree').value = 0.25;
+    document.getElementById('skinfold').value = 20;
+    document.getElementById('blood_pressure').value = 70;
+    document.getElementById('result').classList.remove('show');
+    document.getElementById('errorMessage').classList.remove('show');
+});
+
+document.getElementById('loadExample2').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('bmi').value = 38;
+    document.getElementById('glucose').value = 168;
+    document.getElementById('insulin').value = 400;
+    document.getElementById('age').value = 45;
+    document.getElementById('diabetes_pedigree').value = 0.8;
+    document.getElementById('skinfold').value = 35;
+    document.getElementById('blood_pressure').value = 89;
+    document.getElementById('result').classList.remove('show');
+    document.getElementById('errorMessage').classList.remove('show');
 });
